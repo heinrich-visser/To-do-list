@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.5">
+<style>
+body {
+  margin: 0;
+  min-width: 220px;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  margin: 5;
+  padding: 5;
+}
+
+ul li {
+  cursor: default;
+  position: relative;
+  padding: 12px;
+  list-style-type: none;
+  background: #89CFF0;
+  font-size: 18px;
+  transition: 0.0s;
+  
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+ul li:nth-child(odd) {
+  background: #F0E68C;
+}
+
+
+ul li:hover {
+  background: 	#FFA500;
+}
+
+ul li.checked {
+  background: #fed8b1;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+ul li.checked::before {
+  
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 10px;
+  transform: rotate(135deg);
+  height: 18px;
+  width: 18px;
+}
+
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+
+.header {
+  background-color: #D3D3D3;
+  padding: 30px 40px;
+  color: black;
+  text-align: center;
+}
+
+
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+input {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  width: 70%;
+  padding: 15px;
+  float: left;
+  font-size: 20px;
+}
+
+
+.addBtn {
+  padding: 15px;
+  width: 30%;
+  background: #FFB6C1;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 18px;
+  cursor: default
+  transition: 0.5s;
+  border-radius: 0;
+}
+
+.addBtn:hover {
+  background-color: #bbb;
+}
+</style>
+</head>
+<body>
+<div id="myDIV" class="header">
+  <h1 style="margin:5px">My To Do List</h1>
+  <input type="text" id="myInput" placeholder="Title...">
+  <span onclick="newElement()" class="addBtn">Add</span>
+</div>
+
+<ul id="myUL">
+  <style>h2 {text-align: center;}</style>
+  <h2>Before Work activities</h2>
+  <li>Shower</li>
+  <li>Brush teeth</li>
+  <li>Do hair</li>
+  <li>Fill car up</li>
+  <style>h2 {text-align: center;}</style>
+<h2>After work activities</h2>
+  <li>Go to gym</li>
+  <li>Cook dinner</li>
+</ul>
+
+<script>
+
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+
+
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+  }
+}, false);
+
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("myUL").appendChild(li);
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+}
+</script>
+
+</body>
+</html>
